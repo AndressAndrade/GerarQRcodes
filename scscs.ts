@@ -48,7 +48,7 @@ archive.on('error', function(err) {
 // pipe archive data to the file
 archive.pipe(output);
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 10; i++) {
     let chance = new Chance();
     let venda = chance.string({
         length: 12,
@@ -75,9 +75,9 @@ for (let i = 0; i < 1000; i++) {
 
     temp.writeFile(
         text2png(ativacao, {
-            font: '160px FiraMono',
-            localFontPath: 'font/FiraMono-Regular.ttf',
-            localFontName: 'FiraMono',
+            font: '160px OxygenMono',
+            localFontPath: 'font/OxygenMono-Regular.ttf',
+            localFontName: 'OxygenMono',
             color: 'black',
             backgroundColor: 'white',
             lineSpacing: 10,
@@ -109,7 +109,7 @@ for (let i = 0; i < 1000; i++) {
             );
     });
 
-    let indiceName = 'out_' + i + '.png';
+    let indiceName = 'qrcodes/out_' + i + '.png';
     // append a file
     archive.file('tmp/out.png', { name: indiceName });
 }
