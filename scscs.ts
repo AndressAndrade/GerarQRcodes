@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as temp from 'fs-temp/promise';
 import * as Jimp from 'jimp';
 import * as archiver from 'archiver';
+import * as Chance from 'chance';
 
 let files = '/tmp/qrcode';
 let texto = '/tmp/texto.png';
@@ -47,10 +48,20 @@ archive.on('error', function(err) {
 // pipe archive data to the file
 archive.pipe(output);
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 1000; i++) {
+    let chance = new Chance();
+    let venda = chance.string({
+        length: 12,
+        pool: 'ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789'
+    });
+    let ativacao = chance.string({
+        length: 5,
+        pool: 'ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789'
+    });
+
     QRCode.toFile(
         files,
-        'Some text',
+        venda,
         {
             scale: 1,
             width: 600
@@ -58,12 +69,12 @@ for (let i = 0; i < 4; i++) {
 
         function(err) {
             if (err) throw err;
-            console.log('done');
+            //console.log('done');
         }
     );
 
     temp.writeFile(
-        text2png('2Vz5d', {
+        text2png(ativacao, {
             font: '160px FiraMono',
             localFontPath: 'font/FiraMono-Regular.ttf',
             localFontName: 'FiraMono',
@@ -83,7 +94,7 @@ for (let i = 0; i < 4; i++) {
             .then(tpl =>
                 Jimp.read(files)
                     .then(logoTpl => {
-                        return tpl.composite(logoTpl, 100, 2);
+                        return tpl.composite(logoTpl, 100, 0);
                     })
 
                     //export image
