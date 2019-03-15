@@ -48,8 +48,9 @@ archive.on('error', function(err) {
 // pipe archive data to the file
 archive.pipe(output);
 
+let chance = new Chance();
+
 for (let i = 0; i < 10; i++) {
-    let chance = new Chance();
     let venda = chance.string({
         length: 12,
         pool: 'ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789'
